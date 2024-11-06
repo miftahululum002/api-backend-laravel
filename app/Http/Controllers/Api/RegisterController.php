@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -27,6 +28,7 @@ class RegisterController extends Controller
         $validator = Validator::make($request->all(), [
             'name'      => 'required',
             'umur'      => 'nullable|numeric|min:1',
+            // 'role_id'   => 'required|exists:roles,id',
             'email'     => 'required|email|unique:users,email',
             'password'  => 'required|min:8|confirmed'
         ]);
@@ -37,6 +39,7 @@ class RegisterController extends Controller
         }
         // get all validate data
         $input = $validator->validated();
+        $input['role_id'] = Role::where('name', 'admin')->first()->id;
         $userData = $input;
         $userData['password'] = bcrypt($input['password']);
         try {
