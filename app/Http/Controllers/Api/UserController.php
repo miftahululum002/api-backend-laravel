@@ -30,7 +30,16 @@ class UserController extends Controller
         $page = isset($page) ? $page : 1;
         $perPage = $request->per_page;
         $perPage = !empty($perPage) ? $perPage : 10;
+        $roles = cache('roles');
         $data = User::limit($perPage)->offset(($page - 1) * $perPage)->orderBy('created_at', 'ASC')->get();
+        if ($data) {
+            foreach ($data as $d => $da) {
+                $role = $roles->where('id', $da->role_id)->first();
+                if ($role) {
+                    $data[$d]->role = $role->name;
+                }
+            }
+        }
         return $this->responseSuccess('Data user', $data, 200);
     }
 
@@ -43,9 +52,16 @@ class UserController extends Controller
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show(User $user)
+    public function show($id = null)
     {
-        return $this->responseSuccess('Detail Data User', $user, 200);
+        if (empty($id)) {
+            return $this->responseError('Detail Data User Gagal', 'ID tidak boleh kosong', 400);
+        }
+        $user = User::find($id);
+        if ($user) {
+            return $this->responseSuccess('Detail Data User', $user, 200);
+        }
+        return $this->responseError('Detail Data User Gagal', 'Data tidak ditemukan', 404);
     }
 
     /**
@@ -62,6 +78,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name'      => 'required',
             'email'     => 'required|email|unique:users,email',
+            'role_id'   => 'required|exists:roles,id',
             'umur'      => 'nullable|numeric|min:1',
             'password'  => 'required|min:8|confirmed'
         ]);
@@ -90,12 +107,13 @@ class UserController extends Controller
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(User $user, Request $request)
+    public function update(User $id, Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name'      => 'required',
             "umur"      => 'nullable|numeric|min:1',
-            'email'     => 'required|email|unique:users,email,' . $user->id,
+            'role_id'   => 'nullable|exists:roles,id',
+            'email'     => 'required|email|unique:users,email,' . $id->id,
             'password'  => 'nullable|min:8'
         ]);
 
@@ -109,8 +127,8 @@ class UserController extends Controller
             $userUpdate['password'] = bcrypt($input['password']);
         }
         try {
-            $user->update($userUpdate);
-            return $this->responseSuccess('Data User Berhasil Diupdate!', $user, 200);
+            $id->update($userUpdate);
+            return $this->responseSuccess('Data User Berhasil Diupdate!', $id, 200);
         } catch (Exception $e) {
             return $this->responseError('Data User Gagal Diupdate!', $e->getMessage(), 500);
         }
@@ -125,11 +143,11 @@ class UserController extends Controller
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(User $user)
+    public function destroy(User $id)
     {
         try {
-            $user->delete();
-            return $this->responseSuccess('Data User Berhasil Dihapus!', null, 200);
+            $id->delete();
+            return $this->responseSuccess('Data user berhasil dihapus!', null, 200);
         } catch (Exception $e) {
             return $this->responseError('Data User Gagal Dihapus!', $e->getMessage(), 500);
         }
