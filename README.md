@@ -34,10 +34,10 @@ cp .env.example .env
 Atur konfigurasi database credential pada file .env
 </li>
 <li>
-Jalankan migration
+Jalankan migration untuk membuat data dummy
 
 ```
-php artisan migrate
+php artisan migrate --seed
 ```
 
 </li>
@@ -61,6 +61,12 @@ php artisan serve
 Gunakan postman untuk melakukan request
 </li>
 </ol>
+
+## Unit Test
+
+```
+php artisan test
+```
 
 ## Host
 
