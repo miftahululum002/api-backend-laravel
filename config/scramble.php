@@ -29,7 +29,7 @@ return [
         /*
          * Description rendered on the home page of the API documentation (`/docs/api`).
          */
-        'description' => 'Dokumentasi API untuk integrasi sederhana yang dikembangkan oleh Miftahul Ulum',
+        'description' => 'Dokumentasi API untuk integrasi sederhana yang dikembangkan oleh <a target="_blank" href="https://miftahululum002.github.io/">Miftahul Ulum</a>',
     ],
 
     /*
