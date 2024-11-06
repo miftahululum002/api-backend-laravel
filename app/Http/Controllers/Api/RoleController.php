@@ -11,7 +11,7 @@ class RoleController extends Controller
     /**
      * List
      * 
-     * Get List Users
+     * Get List Role
      * 
      * @param Request $request The request object.
      */
