@@ -15,13 +15,22 @@ class UserController extends Controller
      * 
      * Get List Users
      * 
-     * @param \App\Http\Requests\Auth\LoginRequest $request
-     * 
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request $request The request object.
      */
-    public function index()
+
+    public function index(Request $request)
     {
-        $data = User::all();
+        $validator = Validator::make($request->all(), [
+            // Page query.
+            'page' => 'nullable|numeric',
+            //jumlah data per page data yang ditampilkan.
+            'per_page' => 'nullable|integer'
+        ]);
+        $page = $request->page;
+        $page = isset($page) ? $page : 1;
+        $perPage = $request->per_page;
+        $perPage = !empty($perPage) ? $perPage : 10;
+        $data = User::limit($perPage)->offset(($page - 1) * $perPage)->orderBy('created_at', 'ASC')->get();
         return $this->responseSuccess('Data user', $data, 200);
     }
 
