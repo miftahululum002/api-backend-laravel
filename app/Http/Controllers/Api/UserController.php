@@ -10,18 +10,44 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-
+    /**
+     * List
+     * 
+     * Get List Users
+     * 
+     * @param \App\Http\Requests\Auth\LoginRequest $request
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         $data = User::all();
         return $this->responseSuccess('Data user', $data, 200);
     }
 
+    /**
+     * Detail
+     * 
+     * Get detail user by id
+     * 
+     * @param \App\Http\Requests\Auth\LoginRequest $request
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function show(User $user)
     {
         return $this->responseSuccess('Detail Data User', $user, 200);
     }
 
+    /**
+     * Tambah
+     * 
+     * Tambah user baru
+     * 
+     * @param \App\Http\Requests\Auth\LoginRequest $request
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -46,6 +72,15 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Update
+     * 
+     * Update user by id
+     * 
+     * @param \App\Http\Requests\Auth\LoginRequest $request
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function update(User $user, Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -72,6 +107,15 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Delete
+     * 
+     * Delete user by id
+     * 
+     * @param \App\Http\Requests\Auth\LoginRequest $request
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function destroy(User $user)
     {
         try {

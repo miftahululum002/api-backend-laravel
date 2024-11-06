@@ -9,7 +9,15 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class LogoutController extends Controller
 {
-    public function __invoke(Request $request)
+    /**
+     * Logout
+     * 
+     * Logging out user
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function __invoke()
     {
         $token = JWTAuth::getToken();
         try {

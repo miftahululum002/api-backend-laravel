@@ -8,6 +8,19 @@ use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
+
+    /**
+     * Login
+     * 
+     * Logging in user
+     * 
+     * @unauthenticated
+     * 
+     * @param \App\Http\Requests\Auth\LoginRequest $request
+     * 
+     * @return \Illuminate\Http\JsonResponse
+     */
+
     public function __invoke(Request $request)
     {
         $validator = Validator::make($request->all(), [
