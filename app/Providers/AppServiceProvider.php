@@ -7,6 +7,7 @@ use Dedoc\Scramble\Scramble;
 use Dedoc\Scramble\Support\Generator\OpenApi;
 use Dedoc\Scramble\Support\Generator\SecurityScheme;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,10 +30,12 @@ class AppServiceProvider extends ServiceProvider
                 SecurityScheme::http('bearer', 'JWT')
             );
         });
-
-        Cache::remember('roles', 60, function () {
-            $roles = Role::all();
-            return $roles;
-        });
+        // if (!Schema::hasTable('roles')) {
+        //     // Code to create table
+        //     Cache::remember('roles', 60, function () {
+        //         $roles = Role::all();
+        //         return $roles;
+        //     });
+        // }
     }
 }

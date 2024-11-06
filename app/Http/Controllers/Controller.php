@@ -2,8 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
+use Illuminate\Support\Facades\Cache;
+
 abstract class Controller
 {
+    public function __construct()
+    {
+        Cache::remember('roles', 60, function () {
+            $roles = Role::all();
+            return $roles;
+        });
+    }
 
     protected function responseSuccess($message, $data = null, $statusCode = 200)
     {
