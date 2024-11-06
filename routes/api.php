@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\LogoutController;
 use App\Http\Controllers\Api\RegisterController;
+use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Middleware\JwtMiddleware;
 use Illuminate\Http\Request;
@@ -37,6 +38,13 @@ Route::name('api.')->group(function () {
                 });
             });
         });
+
+        Route::prefix('roles')->group(function () {
+            Route::name('roles.')->group(function () {
+                Route::controller(RoleController::class)->group(function () {
+                    Route::get('/', 'index')->name('index');
+                });
+            });
+        });
     });
-})
-;
+});
