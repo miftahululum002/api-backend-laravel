@@ -13,6 +13,8 @@ class RoleController extends Controller
      * 
      * Get List Role
      * 
+     * Mendapatkan referensi role user
+     * 
      * @param Request $request The request object.
      */
 

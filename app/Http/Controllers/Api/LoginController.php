@@ -14,6 +14,7 @@ class LoginController extends Controller
      * 
      * Logging in user
      * 
+     * Digunakan untuk user login ke dalam sistem
      * @unauthenticated
      * 
      * @param \App\Http\Requests\Auth\LoginRequest $request

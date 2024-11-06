@@ -15,6 +15,7 @@ class UserController extends Controller
      * 
      * Get List Users
      * 
+     * Mendapatkan semua daftar user
      * @param Request $request The request object.
      */
 
@@ -48,6 +49,7 @@ class UserController extends Controller
      * 
      * Get detail user by id
      * 
+     * Mendapatkan detail user berdasarkan id
      * @param \App\Http\Requests\Auth\LoginRequest $request
      * 
      * @return \Illuminate\Http\JsonResponse
@@ -69,6 +71,7 @@ class UserController extends Controller
      * 
      * Tambah user baru
      * 
+     * Menambahkan user baru ke dalam sistem
      * @param \App\Http\Requests\Auth\LoginRequest $request
      * 
      * @return \Illuminate\Http\JsonResponse
@@ -104,6 +107,7 @@ class UserController extends Controller
      * 
      * Update user by id
      * 
+     * Mengupdate data user berdasarkan id
      * @param \App\Http\Requests\Auth\LoginRequest $request
      * 
      * @return \Illuminate\Http\JsonResponse
@@ -139,6 +143,8 @@ class UserController extends Controller
      * Delete
      * 
      * Delete user by id
+     * 
+     * Menghapus data user berdasarkan id
      * 
      * @param \App\Http\Requests\Auth\LoginRequest $request
      * 

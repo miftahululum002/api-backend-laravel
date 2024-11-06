@@ -17,6 +17,8 @@ class RegisterController extends Controller
      * 
      * Register
      * 
+     * Digunakan untuk register user baru.
+     *
      * @unauthenticated
      * @param \App\Http\Requests\Auth\LoginRequest $request
      * 
