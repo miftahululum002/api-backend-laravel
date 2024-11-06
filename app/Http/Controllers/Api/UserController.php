@@ -52,7 +52,7 @@ class UserController extends Controller
      * 
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id = null)
+    public function show(User $id)
     {
         if (empty($id)) {
             return $this->responseError('Detail Data User Gagal', 'ID tidak boleh kosong', 400);
@@ -76,8 +76,9 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name'      => 'required',
-            'email'     => 'required|email|unique:users,email',
+            'name'      => 'required|string|max:255',
+            'email'     => 'required|email|unique:users,email|max:255',
+            // id dari roles cek end point Role List
             'role_id'   => 'required|exists:roles,id',
             'umur'      => 'nullable|numeric|min:1',
             'password'  => 'required|min:8|confirmed'
@@ -110,10 +111,10 @@ class UserController extends Controller
     public function update(User $id, Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name'      => 'required',
+            'name'      => 'required|string|max:255',
             "umur"      => 'nullable|numeric|min:1',
             'role_id'   => 'nullable|exists:roles,id',
-            'email'     => 'required|email|unique:users,email,' . $id->id,
+            'email'     => 'required|email|unique:users,email,' . $id->id . '|max:255',
             'password'  => 'nullable|min:8'
         ]);
 
