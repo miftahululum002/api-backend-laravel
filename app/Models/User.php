@@ -23,6 +23,7 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'password',
         'status_keanggotaan',
+        'role_id',
         'umur',
     ];
 
@@ -67,5 +68,10 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function role()
+    {
+        return $this->hasOne(Role::class, 'id', 'role_id');
     }
 }
